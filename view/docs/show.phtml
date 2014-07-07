@@ -7,9 +7,9 @@ $resourceSet = $data->getResourceSet();
 /** @var $param \WidRestApiDocumentator\ParamInterface */
 $esc = $this->plugin('EscapeHtml');
 ?>
-<h1><?= $esc($config->getName()) ?> <span class="label label-info"><?= $esc($config->getVersion())?></span></h1>
+<h1><?php echo $esc($config->getName()) ?> <span class="label label-info"><?php echo $esc($config->getVersion())?></span></h1>
 <?php if ($this->showBackLink): ?>
-<p><a href="<?= $this->url('rest-api-docs') ?>"><i class="icon-chevron-left"></i> Go back to list</a></p>
+<p><a href="<?php echo $this->url('rest-api-docs') ?>"><i class="icon-chevron-left"></i> Go back to list</a></p>
 <?php endif; ?>
 
 <?php foreach ($resourceSet as $number => $resource): ?>
@@ -32,17 +32,17 @@ $esc = $this->plugin('EscapeHtml');
 <div class="api-entrypoint">
     <div class="row">
         <div class="span1">
-            <span class="api-method api-method-<?= strtolower($esc($resource->getMethod())) ?>" ><?= $esc($resource->getMethod())?></span>
+            <span class="api-method api-method-<?php echo strtolower($esc($resource->getMethod())) ?>" ><?php echo $esc($resource->getMethod())?></span>
             <span class="api-request-action"
                   title="Run endpoint"
-                  data-api-url="<?= $this->url('rest-api/api/post', array('id' => $this->id, 'endpoint' => $number)) ?>">
+                  data-api-url="<?php echo $this->url('rest-api/api/post', array('id' => $this->id, 'endpoint' => $number)) ?>">
                 <small>Run &raquo</small>
             </span>
         </div>
         <div class="span11 api-info">
-            <span class="api-url"><?= $esc($resource->getUrl());?></span>
+            <span class="api-url"><?php echo $esc($resource->getUrl());?></span>
             <?php if ($hasDescription): ?>
-                <p class="api-description muted"><small><?= $esc($resource->getDescription()); ?></small></p>
+                <p class="api-description muted"><small><?php echo $esc($resource->getDescription()); ?></small></p>
             <?php endif ?>
         </div>
     </div>
@@ -51,45 +51,45 @@ $esc = $this->plugin('EscapeHtml');
             <div class="tabbable tabs-left">
                 <ul class="nav nav-tabs">
                     <?php if ($hasOptions) :?>
-                    <li><a href="#params-<?=$number?>" data-toggle="tab">Options</a></li>
+                    <li><a href="#params-<?php echo $number?>" data-toggle="tab">Options</a></li>
                     <?php endif ?>
 
-                    <li class="<?= $hasParams ? '': 'active'?>"><a href="#response-<?=$number?>" data-toggle="tab">Response</a></li>
+                    <li class="<?php echo $hasParams ? '': 'active'?>"><a href="#response-<?php echo $number?>" data-toggle="tab">Response</a></li>
                 </ul>
                 <div class="tab-content">
 
                     <?php if ($hasOptions) :?>
-                    <div class="tab-pane" id="params-<?=$number?>">
+                    <div class="tab-pane" id="params-<?php echo $number?>">
                         <?php if ($hasHeaders) :?>
-                            <?= $this->partial('wid-rest-api-documentator/partials/headers', array('headers' => $headers, 'namespace' => 'headers')); ?>
+                            <?php echo $this->partial('wid-rest-api-documentator/partials/headers', array('headers' => $headers, 'namespace' => 'headers')); ?>
                         <?php endif ?>
 
                         <?php if ($hasParams) :?>
-                        <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $urlParams,   'namespace' => 'urlParams', 'header' => 'Url params')); ?>
-                        <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $queryParams, 'namespace' => 'queryParams', 'header' => 'Query params')); ?>
+                        <?php echo $this->partial('wid-rest-api-documentator/partials/params', array('params' => $urlParams,   'namespace' => 'urlParams', 'header' => 'Url params')); ?>
+                        <?php echo $this->partial('wid-rest-api-documentator/partials/params', array('params' => $queryParams, 'namespace' => 'queryParams', 'header' => 'Query params')); ?>
                         <?php endif ?>
 
                         <?php if ($hasBody) :?>
-                            <?= $this->partial('wid-rest-api-documentator/partials/params', array('params' => $body->getParams(), 'namespace' => 'body', 'header' => 'Body')); ?>
+                            <?php echo $this->partial('wid-rest-api-documentator/partials/params', array('params' => $body->getParams(), 'namespace' => 'body', 'header' => 'Body')); ?>
                         <?php endif ?>
                     </div>
                     <?php endif ?>
 
-                    <div class="tab-pane active" id="response-<?=$number?>">
+                    <div class="tab-pane active" id="response-<?php echo $number?>">
                         <div class="tabbable">
                             <ul class="nav nav-tabs">
-                                <li><a href="#api-response-body-<?=$number?>" class="active" data-toggle="tab">Response body</a></li>
-                                <li><a href="#api-response-header-<?=$number?>" data-toggle="tab">Response headers</a></li>
-                                <li><a href="#api-request-body-<?=$number?>" data-toggle="tab">Request body</a></li>
-                                <li><a href="#api-request-header-<?=$number?>" data-toggle="tab">Request headers</a></li>
-                                <li><a href="#api-request-uri-<?=$number?>" data-toggle="tab">Request URI</a></li>
+                                <li><a href="#api-response-body-<?php echo $number?>" class="active" data-toggle="tab">Response body</a></li>
+                                <li><a href="#api-response-header-<?php echo $number?>" data-toggle="tab">Response headers</a></li>
+                                <li><a href="#api-request-body-<?php echo $number?>" data-toggle="tab">Request body</a></li>
+                                <li><a href="#api-request-header-<?php echo $number?>" data-toggle="tab">Request headers</a></li>
+                                <li><a href="#api-request-uri-<?php echo $number?>" data-toggle="tab">Request URI</a></li>
                             </ul>
                             <div class="tab-content">
-                                <pre id="api-request-uri-<?=$number?>"     class="tab-pane api-response api-response-requestUri">Response wasn't received. Run endpoint request to see result.</pre>
-                                <pre id="api-request-header-<?=$number?>"  class="tab-pane api-response api-response-requestHeaders">Response wasn't received. Run endpoint request to see result.</pre>
-                                <pre id="api-request-body-<?=$number?>"    class="tab-pane api-response api-response-requestBody">Response wasn't received. Run endpoint request to see result.</pre>
-                                <pre id="api-response-header-<?=$number?>" class="tab-pane api-response api-response-responseHeaders">Response wasn't received. Run endpoint request to see result.</pre>
-                                <pre id="api-response-body-<?=$number?>"   class="tab-pane active api-response api-response-responseBody">Response wasn't received. Run endpoint request to see result.</pre>
+                                <pre id="api-request-uri-<?php echo $number?>"     class="tab-pane api-response api-response-requestUri">Response wasn't received. Run endpoint request to see result.</pre>
+                                <pre id="api-request-header-<?php echo $number?>"  class="tab-pane api-response api-response-requestHeaders">Response wasn't received. Run endpoint request to see result.</pre>
+                                <pre id="api-request-body-<?php echo $number?>"    class="tab-pane api-response api-response-requestBody">Response wasn't received. Run endpoint request to see result.</pre>
+                                <pre id="api-response-header-<?php echo $number?>" class="tab-pane api-response api-response-responseHeaders">Response wasn't received. Run endpoint request to see result.</pre>
+                                <pre id="api-response-body-<?php echo $number?>"   class="tab-pane active api-response api-response-responseBody">Response wasn't received. Run endpoint request to see result.</pre>
                             </div>
                         </div>
                     </div>

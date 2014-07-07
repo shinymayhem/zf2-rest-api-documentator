@@ -7,7 +7,7 @@ if (!count($params)) {
 $esc = $this->plugin('EscapeHtml');
 ?>
 <div class="api-params">
-    <h5><?= $esc($this->header) ?></h5>
+    <h5><?php echo $esc($this->header) ?></h5>
     <table class="table table-bordered">
         <tr>
             <th class="span2">Name</th>
@@ -16,11 +16,11 @@ $esc = $this->plugin('EscapeHtml');
             <th>Description</th>
         </tr>
         <?php foreach($params as $param): ?>
-            <tr class="<?= $param->isRequired() ? 'warning' : '' ?>">
-                <td><?= $esc($param->getName()) ?></td>
-                <td><?= $esc($param->getType()) ?></td>
-                <td><?= sprintf('<input name="%s[%s]" class="api-param-value"/>', $this->namespace, $esc($param->getName())); ?></td>
-                <td><span class="label label-important"><?= $param->isRequired() ? 'required' : '' ?></span> <?= $esc($param->getDescription()) ?></td>
+            <tr class="<?php echo $param->isRequired() ? 'warning' : '' ?>">
+                <td><?php echo $esc($param->getName()) ?></td>
+                <td><?php echo $esc($param->getType()) ?></td>
+                <td><?php echo sprintf('<input name="%s[%s]" class="api-param-value"/>', $this->namespace, $esc($param->getName())); ?></td>
+                <td><span class="label label-important"><?php echo $param->isRequired() ? 'required' : '' ?></span> <?php echo $esc($param->getDescription()) ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

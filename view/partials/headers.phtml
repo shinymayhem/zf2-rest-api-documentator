@@ -15,10 +15,10 @@ $esc = $this->plugin('EscapeHtml');
             <th>Description</th>
         </tr>
         <?php foreach($headers as $header): ?>
-            <tr class="<?= $header->isRequired() ? 'warning' : '' ?>">
-                <td><?= $esc($header->getName()) ?></td>
-                <td><?= sprintf('<input name="%s[%s]" class="api-header-value"/>', $this->namespace, $esc($header->getName()), $esc($header->getValue())); ?></td>
-                <td><span class="label label-important"><?= $header->isRequired() ? 'required' : '' ?></span> <?= $esc($header->getDescription()) ?></td>
+            <tr class="<?php echo $header->isRequired() ? 'warning' : '' ?>">
+                <td><?php echo $esc($header->getName()) ?></td>
+                <td><?php echo sprintf('<input name="%s[%s]" class="api-header-value"/>', $this->namespace, $esc($header->getName()), $esc($header->getValue())); ?></td>
+                <td><span class="label label-important"><?php echo $header->isRequired() ? 'required' : '' ?></span> <?php echo $esc($header->getDescription()) ?></td>
             </tr>
         <?php endforeach; ?>
     </table>

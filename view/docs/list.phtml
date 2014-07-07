@@ -7,9 +7,9 @@ $esc = $this->plugin('EscapeHtml');
 <ul class="api-list">
     <?php foreach($this->dataSet as $data): ?>
     <li class="api-item">
-        <h2><a href="<?= $this->url('rest-api-docs/show', array('id' => $data->getId()))?>">
-            <?= $esc($data->getConfig()->getName()); ?>
-            <span class="label label-info"><?= $esc($data->getConfig()->getVersion()); ?></span>
+        <h2><a href="<?php echo $this->url('rest-api-docs/show', array('id' => $data->getId()))?>">
+            <?php echo $esc($data->getConfig()->getName()); ?>
+            <span class="label label-info"><?php echo $esc($data->getConfig()->getVersion()); ?></span>
         </a></h2>
     </li>
     <?php endforeach; ?>
