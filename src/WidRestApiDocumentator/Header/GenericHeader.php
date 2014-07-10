@@ -5,6 +5,7 @@ use WidRestApiDocumentator\HeaderInterface;
 
 class GenericHeader implements HeaderInterface
 {
+    protected $key;
     protected $name;
     protected $value;
     protected $required = false;
@@ -29,6 +30,17 @@ class GenericHeader implements HeaderInterface
     {
         return $this->description;
     }
+
+    public function setKey($key)
+    {
+        $this->key = (string) $key;
+    }
+
+    public function getKey()
+    {
+        return $this->key;
+    }
+
 
     public function setName($name)
     {

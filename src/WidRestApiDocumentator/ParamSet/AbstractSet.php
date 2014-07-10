@@ -14,7 +14,7 @@ abstract class AbstractSet extends \ArrayIterator implements ParamSetInterface
 
     public function set(ParamInterface $param)
     {
-        $this->offsetSet($param->getName(), $param);
+        $this->offsetSet($param->getKey(), $param);
     }
 
     /**
@@ -23,12 +23,23 @@ abstract class AbstractSet extends \ArrayIterator implements ParamSetInterface
      */
     public function get($param)
     {
+        $has = $this->has($param);
+        if ($has)
+        {
+            $return = $this->offsetGet($param);
+        }
+        else
+        {
+            $return = null;
+        }
+        return $return;
         return $this->has($param) ? $this->offsetGet($param) : null;
     }
 
     public function has($param)
     {
-        return $this->offsetExists($param);
+        $exists = $this->offsetExists($param);
+        return $exists;
     }
 
     /**

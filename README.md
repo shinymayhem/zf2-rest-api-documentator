@@ -50,23 +50,31 @@ This is a minimal configuration required to achieve result shown further dawn.
 <?php
 return array(
     // Configuration namespace within this module looking for data
-	'zf2-rest-api-documentator' => array(
-	    // Contains collection of documentation descriptions.
+    'zf2-rest-api-documentator' => array(
+        // Contains collection of documentation descriptions.
         'docs' => array(
             // Namespace of module within REST API description resides. Must be unique per module.
             'my_module_name' => array(
                 'name' => 'api.example.com',
                 'version' => '1.1',
                 'baseUrl' => 'http://127.0.0.1:8080/api',
-                // Strategy is way, in which this configuration will be interpreted.
+                // Strategy is the way in which this configuration will be interpreted.
                 'strategy' => 'standard',
-                // General description for common thing in module, to skip redundancy
+                // General description for common things in module, to skip redundancy
                 'general' => array(
+                    'headers' => array(
+                        'accept' => array(
+                            'name' => 'Accept'
+                            'type' => 'string',
+                            'required' => true,
+                            'description' => 'Content type to return'
+                        ),
+                    ),
                     'params' => array(
                         'id' => array(
                             'type' => 'integer',
                             'required' => true,
-                            'description' => 'Resource identificator'
+                            'description' => 'Resource identifier'
                         ),
                         'limit' => array(
                             'type' => 'integer',
@@ -98,7 +106,7 @@ return array(
                     'GET: /keywords/<id>/search_engines?limit=&order=',
                     'GET: /keywords/<id>/domains_positions_in_search_engine',
                     'PUT: /users/me' => array(
-                        'description' => 'Demonstration endpoint that use headers & body params',
+                        'description' => 'Demonstration endpoint that uses headers & body params',
                         'headers' => array(
                             'X-Login' => array(
                                 'type' => 'string',
@@ -118,7 +126,7 @@ return array(
                 ),
             ),
         ),
-	),
+    ),
 );
 
 ```
@@ -155,16 +163,16 @@ return array(
 ### Write your own strategy
 
 Currently module have one strategy named "standard".
-Strategy is way, in which documentation configuration will be interpreted.
-It's very useful way to create your own interpreter.
+Strategy is the way in which documentation configuration will be interpreted.
+It's a very useful way to create your own interpreter.
 To do that you need to do two things
 
   1. Write your strategy implementing this interface `WidRestApiDocumentator\StrategyInterface`
-  2. Tell the module, that there is new strategy. Create this configuration entry:
+  2. Tell the module that there is new strategy. Create this configuration entry:
 
 ``` php
 return array(
-	'zf2-rest-api-documentator' => array(
+    'zf2-rest-api-documentator' => array(
         'strategies' => array(
             'invokables' => array(
                 'myStrategy' => 'WidRestApiDocumentator\Strategy\Standard',

@@ -5,6 +5,7 @@ use WidRestApiDocumentator\ParamInterface;
 
 class GenericParam implements ParamInterface
 {
+    protected $key;
     protected $name;
     protected $value;
     protected $type = self::TYPE_MIXED;
@@ -36,6 +37,16 @@ class GenericParam implements ParamInterface
     public function getDescription()
     {
         return $this->description;
+    }
+
+    public function setKey($key)
+    {
+        $this->key = (string) $key;
+    }
+
+    public function getKey()
+    {
+        return $this->key;
     }
 
     public function setName($name)

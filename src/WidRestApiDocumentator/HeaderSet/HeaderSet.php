@@ -13,7 +13,7 @@ class HeaderSet extends \ArrayIterator implements HeaderSetInterface
 
     public function set(HeaderInterface $header)
     {
-        $this->offsetSet($header->getName(), $header);
+        $this->offsetSet($header->getKey(), $header);
     }
 
     public function get($header)

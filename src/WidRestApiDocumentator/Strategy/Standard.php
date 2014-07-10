@@ -30,6 +30,11 @@ class Standard implements StrategyInterface
      */
     protected $generalParams;
 
+    /**
+     * @var HeaderSet
+     */
+    protected $generalHeaders;
+
     protected $availableMethods = array(
         self::METHOD_GET => true,
         self::METHOD_POST => true,
@@ -53,6 +58,7 @@ class Standard implements StrategyInterface
         $resultSet = new ResourceSet\StandardSet();
 
         $this->generalParams = new ParamSet();
+        $this->generalHeaders = new HeaderSet();
         $this->parseGeneral($config->getGeneral());
 
         foreach ($config->getResources() as $definition => $options) {
@@ -121,10 +127,22 @@ class Standard implements StrategyInterface
     public function parseHeaders(array $headers, ResourceInterface $resource)
     {
         $headerSet = new HeaderSet();
+        //if (is_array($
         foreach ($headers as $name => $options) {
-            $header = new GenericHeader();
-            $header->setName($name);
-            $header->setOptions($options);
+            if (is_array($options))
+            {
+                $header = new GenericHeader();
+                $header->setName($name);
+                $header->setOptions($options);
+            }
+            elseif (is_string($options) && $this->generalHeaders->has($options))
+            {
+                $header = $this->generalHeaders->get($options);
+            }
+            else
+            {
+                //doesn't exist, throw exception?
+            }
             $headerSet->set($header);
         }
         $resource->setHeaders($headerSet);
@@ -171,10 +189,21 @@ class Standard implements StrategyInterface
     {
         $paramSet = new ParamSet();
         $params = (array)$data['params'];
-        foreach ($params as $name => $options) {
-            $param = new GenericParam();
-            $param->setName($name);
-            $param->setOptions($options);
+        foreach ($params as $key => $options) {
+            if (is_array($options))
+            {
+                $param = new GenericParam();
+                $param->setKey($key);
+                $param->setOptions($options);
+            }
+            elseif (is_string($options) && $this->generalParams->has($options))
+            {
+                $param = $this->generalParams->get($options);
+            }
+            else
+            {
+                //doesn't exist, throw error?
+            }
             $paramSet->set($param);
         }
         return $paramSet;
@@ -191,11 +220,33 @@ class Standard implements StrategyInterface
         foreach ($general as $namespace => $data) {
             switch ($namespace) {
                 case 'params':
-                    foreach ((array) $data as $name => $options) {
-                        $param = new GenericParam();
-                        $param->setName($name);
-                        $param->setOptions($options);
-                        $this->generalParams->set($param);
+                    foreach ((array) $data as $key => $options) {
+                        if (is_array($options))
+                        {
+                            $param = new GenericParam();
+                            $param->setKey($key);
+                            $param->setOptions($options);
+                            $this->generalParams->set($param);
+                        }
+                        elseif (is_string($options) && $this->generalParams->has($options))
+                        {
+                            $param = $this->generalParams->get($options);
+                        }
+                    }
+                    break;
+                case 'headers':
+                    foreach ((array) $data as $key => $options) {
+                        if (is_array($options))
+                        {
+                            $header = new GenericHeader();
+                            $header->setKey($key);
+                            $header->setOptions($options);
+                            $this->generalHeaders->set($header);
+                        }
+                        elseif (is_string($options) && $this->generalHeaders->has($options))
+                        {
+                            $header = $this->generalHeaders->get($options);
+                        }
                     }
                     break;
             }
