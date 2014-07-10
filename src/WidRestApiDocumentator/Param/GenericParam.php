@@ -51,8 +51,16 @@ class GenericParam implements ParamInterface
 
     public function setName($name)
     {
-        $this->name = (string) $name;
+        if ($name !== null)
+        {
+            $this->name = (string) $name;
+        }
+        else
+        {
+            $this->name = (string) $this->key;
+        }
     }
+
 
     public function getName()
     {
