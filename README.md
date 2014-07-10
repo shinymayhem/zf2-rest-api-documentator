@@ -71,6 +71,11 @@ return array(
                         ),
                     ),
                     'params' => array(
+                        'user' => array(
+                            'type' => 'string',
+                            'required' => true,
+                            'description' => 'Username'
+                        ),
                         'id' => array(
                             'type' => 'integer',
                             'required' => true,
@@ -94,6 +99,7 @@ return array(
                         'body' => array(
                             'type' => 'WidRestApiDocumentator\Body\JsonBody',
                             'params' => array(
+                                'user',
                                 'name' => array(
                                     'type' => 'string',
                                     'required' => true,
@@ -108,6 +114,7 @@ return array(
                     'PUT: /users/me' => array(
                         'description' => 'Demonstration endpoint that uses headers & body params',
                         'headers' => array(
+                            'accept',
                             'X-Login' => array(
                                 'type' => 'string',
                                 'required' => true,
