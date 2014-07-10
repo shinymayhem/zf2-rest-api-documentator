@@ -310,6 +310,7 @@ class Standard implements StrategyInterface
                 $general = $this->generalParams->get($param->getName());
                 $param->setDescription($general->getDescription());
                 $param->setType($general->getType());
+                $param->setValue($general->getValue());
                 $param->setRequired($general->isRequired());
             }
         }
