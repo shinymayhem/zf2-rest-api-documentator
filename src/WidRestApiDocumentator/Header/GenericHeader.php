@@ -33,6 +33,10 @@ class GenericHeader implements HeaderInterface
 
     public function setKey($key)
     {
+		if (empty($this->key))
+		{
+			$this->key=$this->name;
+		}
         $this->key = (string) $key;
     }
 
@@ -56,6 +60,10 @@ class GenericHeader implements HeaderInterface
 
     public function getName()
     {
+		if (empty($this->name))
+		{
+			$this->name=$this->key;
+		}
         return $this->name;
     }
 

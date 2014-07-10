@@ -46,6 +46,10 @@ class GenericParam implements ParamInterface
 
     public function getKey()
     {
+		if (empty($this->key))
+		{
+			$this->key=$this->name;
+		}
         return $this->key;
     }
 
@@ -64,6 +68,10 @@ class GenericParam implements ParamInterface
 
     public function getName()
     {
+		if (empty($this->name))
+		{
+			$this->name=$this->key;
+		}
         return $this->name;
     }
 
