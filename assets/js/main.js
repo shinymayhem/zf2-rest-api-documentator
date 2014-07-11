@@ -5,7 +5,16 @@
 
             value.charAt(0) == '{' && (result = this.json(value));
             value.charAt(0) == '[' && (result = this.json(value));
+            value.charAt(1) == '<' && (result = this.xml(value));
 
+            return result;
+        },
+        "xml": function(value) {
+            var div = document.createElement('div');
+            div.appendChild(document.createTextNode(value));
+            result = div.innerHTML; 
+            result = result.replace(/\\n/g, "\n");
+            result = result.replace(/\\/g, "");
             return result;
         },
         "json": function (value) {
