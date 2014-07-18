@@ -18,6 +18,12 @@ class StandardResource implements ResourceInterface
     protected $uri;
     protected $headers;
     protected $body;
+    protected $requestUri;
+    protected $requestHeaders;
+    protected $requestBody;
+    protected $responseHeaders;
+    protected $responseBody;
+
 
     public function setDescription($description)
     {
@@ -99,5 +105,60 @@ class StandardResource implements ResourceInterface
             $this->body = new NullBody();
         }
         return $this->body;
+    }
+
+    public function getRequestUri()
+    {
+        return $this->requestUri;
+    }
+
+    public function setRequestUri($requestUri)
+    {
+        $this->requestUri = $requestUri;
+        return $this;
+    }
+
+    public function getRequestHeaders()
+    {
+        return $this->requestHeaders;
+    }
+
+    public function setRequestHeaders($requestHeaders)
+    {
+        $this->requestHeaders = $requestHeaders;
+        return $this;
+    }
+
+    public function getRequestBody()
+    {
+        return $this->requestBody;
+    }
+
+    public function setRequestBody($requestBody)
+    {
+        $this->requestBody = $requestBody;
+        return $this;
+    }
+
+    public function getResponseHeaders()
+    {
+        return $this->responseHeaders;
+    }
+
+    public function setResponseHeaders($responseHeaders)
+    {
+        $this->responseHeaders = $responseHeaders;
+        return $this;
+    }
+
+    public function getResponseBody()
+    {
+        return $this->responseBody;
+    }
+
+    public function setResponseBody($responseBody)
+    {
+        $this->responseBody = $responseBody;
+        return $this;
     }
 }

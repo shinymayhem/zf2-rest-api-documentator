@@ -112,6 +112,14 @@ class Standard implements StrategyInterface
             $resource->setDescription($options);
         } else if (is_array($options)) {
             $this->parseGeneral($options);
+            if (array_key_exists('example', $options)) {
+                $example = $options['example'];
+                $resource->setRequestUri($example['requestUri']);
+                $resource->setRequestHeaders($example['requestHeaders']);
+                $resource->setRequestBody($example['requestBody']);
+                $resource->setResponseHeaders($example['responseHeaders']);
+                $resource->setResponseBody($example['responseBody']);
+            }
             if (array_key_exists('description', $options)) {
                 $resource->setDescription($options['description']);
             }

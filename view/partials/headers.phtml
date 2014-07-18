@@ -11,13 +11,13 @@ $esc = $this->plugin('EscapeHtml');
     <table class="table table-bordered">
         <tr>
             <th class="span3">Name</th>
-            <th class="span2">Value</th>
+            <!--<th class="span2">Value</th> -->
             <th>Description</th>
         </tr>
         <?php foreach($headers as $header): ?>
             <tr class="<?php echo $header->isRequired() ? 'warning' : '' ?>">
                 <td><?php echo $esc($header->getName()) ?></td>
-                <td><?php echo sprintf('<input name="%s[%s]" class="api-header-value" value="%s"/>', $this->namespace, $esc($header->getName()), $esc($header->getValue()), $esc($header->getValue())); ?></td>
+                <!--<td><?php echo sprintf('<input name="%s[%s]" class="api-header-value" value="%s"/>', $this->namespace, $esc($header->getName()), $esc($header->getValue()), $esc($header->getValue())); ?></td> -->
                 <td><span class="label label-important"><?php echo $header->isRequired() ? 'required' : '' ?></span> <?php echo $esc($header->getDescription()) ?></td>
             </tr>
         <?php endforeach; ?>

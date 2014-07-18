@@ -4,3 +4,5 @@
 composer.lock
 public/assets/*
 index.php
+*.swo
+*.swp

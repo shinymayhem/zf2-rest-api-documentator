@@ -28,16 +28,19 @@ $esc = $this->plugin('EscapeHtml');
     $hasHeaders = count($headers);
 
     $hasOptions = $hasParams || $hasHeaders || $hasBody;
+    $baseUrl = $config->getBaseUrl();
 ?>
 <div class="api-entrypoint">
     <div class="row">
         <div class="span1">
             <span class="api-method api-method-<?php echo strtolower($esc($resource->getMethod())) ?>" ><?php echo $esc($resource->getMethod())?></span>
+<!--
             <span class="api-request-action"
                   title="Run endpoint"
                   data-api-url="<?php echo $this->url('rest-api/api/post', array('id' => $this->id, 'endpoint' => $number)) ?>">
                 <small>Run &raquo</small>
             </span>
+-->
         </div>
         <div class="span11 api-info">
             <span class="api-url"><?php echo $esc($resource->getUrl());?></span>
@@ -54,7 +57,7 @@ $esc = $this->plugin('EscapeHtml');
                     <li><a href="#params-<?php echo $number?>" data-toggle="tab">Options</a></li>
                     <?php endif ?>
 
-                    <li class="<?php echo $hasParams ? '': 'active'?>"><a href="#response-<?php echo $number?>" data-toggle="tab">Response</a></li>
+                    <li class="<?php echo $hasParams ? '': 'active'?>"><a href="#response-<?php echo $number?>" data-toggle="tab">Example</a></li>
                 </ul>
                 <div class="tab-content">
 
@@ -78,18 +81,34 @@ $esc = $this->plugin('EscapeHtml');
                     <div class="tab-pane active" id="response-<?php echo $number?>">
                         <div class="tabbable">
                             <ul class="nav nav-tabs">
-                                <li><a href="#api-response-body-<?php echo $number?>" class="active" data-toggle="tab">Response body</a></li>
-                                <li><a href="#api-response-header-<?php echo $number?>" data-toggle="tab">Response headers</a></li>
-                                <li><a href="#api-request-body-<?php echo $number?>" data-toggle="tab">Request body</a></li>
-                                <li><a href="#api-request-header-<?php echo $number?>" data-toggle="tab">Request headers</a></li>
                                 <li><a href="#api-request-uri-<?php echo $number?>" data-toggle="tab">Request URI</a></li>
+                                <li><a href="#api-request-header-<?php echo $number?>" data-toggle="tab">Request headers</a></li>
+                                <li><a href="#api-request-body-<?php echo $number?>" data-toggle="tab">Request body</a></li>
+                                <li><a href="#api-response-header-<?php echo $number?>" data-toggle="tab">Response headers</a></li>
+                                <li><a href="#api-response-body-<?php echo $number?>" class="active" data-toggle="tab">Response body</a></li>
                             </ul>
                             <div class="tab-content">
-                                <pre id="api-request-uri-<?php echo $number?>"     class="tab-pane api-response api-response-requestUri">Response wasn't received. Run endpoint request to see result.</pre>
-                                <pre id="api-request-header-<?php echo $number?>"  class="tab-pane api-response api-response-requestHeaders">Response wasn't received. Run endpoint request to see result.</pre>
-                                <pre id="api-request-body-<?php echo $number?>"    class="tab-pane api-response api-response-requestBody">Response wasn't received. Run endpoint request to see result.</pre>
-                                <pre id="api-response-header-<?php echo $number?>" class="tab-pane api-response api-response-responseHeaders">Response wasn't received. Run endpoint request to see result.</pre>
-                                <pre id="api-response-body-<?php echo $number?>"   class="tab-pane active api-response api-response-responseBody">Response wasn't received. Run endpoint request to see result.</pre>
+                                <pre id="api-request-uri-<?php echo $number?>"     class="tab-pane api-response api-response-requestUri">
+<?php echo $baseUrl . $resource->getRequestUri(); ?>
+</pre>
+                                <pre id="api-request-header-<?php echo $number?>"  class="tab-pane api-response api-response-requestHeaders">
+<?php if (count($resource->getRequestHeaders())) : foreach ($resource->getRequestHeaders() as $header=>$value) : ?>
+<?php echo is_numeric($header) ? $value : "$header: $value"; ?>
+
+<?php endforeach;  endif; ?>
+</pre>
+                                <pre id="api-request-body-<?php echo $number?>"    class="tab-pane api-response api-response-requestBody">
+<?php echo $resource->getRequestBody(); ?>
+</pre>
+                                <pre id="api-response-header-<?php echo $number?>" class="tab-pane api-response api-response-responseHeaders">
+<?php if (count($resource->getResponseHeaders())) : foreach ($resource->getResponseHeaders() as $header=>$value) : ?>
+<?php echo is_numeric($header) ? $value : "$header: $value"; ?>
+
+<?php endforeach; endif; ?>
+</pre>
+                                <pre id="api-response-body-<?php echo $number?>"   class="tab-pane active api-response api-response-responseBody">
+<?php echo $resource->getResponseBody(); ?>
+</pre>
                             </div>
                         </div>
                     </div>

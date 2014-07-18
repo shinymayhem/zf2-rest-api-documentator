@@ -15,7 +15,7 @@
             result = div.innerHTML; 
             result = result.replace(/\\n/g, "\n");
             result = result.replace(/\\/g, "");
-            return result;
+            return this.json(result);
         },
         "json": function (value) {
             var value = new String(value);
@@ -72,6 +72,13 @@
         var documentation = parent.find('.api-entrypoint-documentation');
 
         documentation.toggleClass('show');
+    });
+
+    $(".api-response-requestBody").each(function() {
+        $(this).html(Formater.auto($(this).html()))
+    });
+    $(".api-response-responseBody").each(function() {
+        $(this).html(Formater.auto($(this).html()))
     });
 
     // Perform request
